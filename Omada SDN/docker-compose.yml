@@ -5,8 +5,7 @@ services:
     image:  mbentley/omada-controller:5.13
     container_name: omada-controller
     hostname: omada-controller
-    networks:
-      - omada
+    networks_mode: host
     restart: unless-stopped
     ulimits:
       nofile:
@@ -42,10 +41,6 @@ services:
       - SSL_CERT_NAME="tls.crt"
       - SSL_KEY_NAME="tls.key"
       - TZ=Europe/Berlin
-
-networks:
-  omada:
-    driver: host
 
 volumes:
   omada-data:
