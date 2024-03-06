@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   omada-controller:
-    image:  mbentley/omada-controller:5.13
+    image:  mbentley/omada-controller:latest
     container_name: omada-controller
     hostname: omada-controller
     network_mode: host
