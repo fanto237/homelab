@@ -1,5 +1,3 @@
-version: "3.3"
-
 services:
   adguardHome:
     image: adguard/adguardhome:latest
@@ -18,11 +16,14 @@ services:
       - 853:853/udp
       - 5443:5443/tcp
       - 5443:5443/udp
-      - 6060:6060/tcp\
+      - 6060:6060/tcp
     restart: always
-    networks:
-      - dns
+    network_mode: host
 
-networks:
-  dns:
-    driver: host
+    volumes:
+    - adguardWork:/opt/adguardhome/work
+    - adguardConf:/opt/adguardhome/conf
+
+volumes:
+  adguardWork:
+  adguardConf:
