@@ -1,0 +1,22 @@
+services:
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: nextcloud
+    hostname: nextcloud
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+    volumes:
+        - config:/config
+        - data:/data
+    ports:
+      - 8888:443
+    restart: unless-stopped
+
+volumes:
+  config:
+  data:
+
+# docker exec --user www-data nextcloud php occ config:app:set serverinfo token --value bnZGmKpQGlqeCEdeVrbGkEgx5YfFUQeSd1Dy6WFtRDAoQkcEfCxlQ8vG891ytzzh
+# docker exec -it nextcloud occ occ config:app:set serverinfo token --value tFel0Dd7VUZthsvOmxPdGItjYdjGVjS3li59wxjxWikygTd8ohE1S5gA1YizV3LU

@@ -1,0 +1,23 @@
+services:
+  collabora:
+    image: collabora/code
+    container_name: collabora
+    hostname: collabora
+    restart: always
+    ports:
+      - 9980:9980
+      - 9994:9980
+      - 9993:9980
+    environment:
+      aliasgroup1: $NC_HOST
+    cap_add:
+      - MKNOD
+# volumes:
+
+
+# docker pull collabora/code
+# docker run -t -d -p 127.0.0.1:9980:9980 \
+#     -e 'aliasgroup1=https://cloud.example.com:443' \
+#     --restart always \
+#     --cap-add MKNOD \
+#     collabora/code
