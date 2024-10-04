@@ -18,5 +18,5 @@ volumes:
   config:
   data:
 
-# docker exec --user www-data nextcloud php occ config:app:set serverinfo token --value bnZGmKpQGlqeCEdeVrbGkEgx5YfFUQeSd1Dy6WFtRDAoQkcEfCxlQ8vG891ytzzh
-# docker exec -it nextcloud occ occ config:app:set serverinfo token --value tFel0Dd7VUZthsvOmxPdGItjYdjGVjS3li59wxjxWikygTd8ohE1S5gA1YizV3LU
+
+#For running occ use the following command: docker exec -it nextcloud occ
