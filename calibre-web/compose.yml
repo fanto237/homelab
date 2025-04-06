@@ -1,0 +1,25 @@
+---
+services:
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:latest
+    container_name: calibre-web
+    hostname: calibre-web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+      - DOCKER_MODS=linuxserver/mods:universal-calibre 
+    volumes:
+      - config:/config
+      - /home/fanto/.books:/books
+      #- type: bind
+      #  source: /mnt/media/Books
+      #  target: /books
+    ports:
+      - 8083:8083
+    restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+      
+volumes:
+  config:
