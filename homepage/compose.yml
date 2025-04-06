@@ -11,4 +11,7 @@ services:
     environment:
       PUID: $PUID
       PGID: $PGID
+      HOMEPAGE_ALLOWED_HOSTS: $HOST
     restart: always
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
