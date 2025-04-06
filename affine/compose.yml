@@ -1,0 +1,55 @@
+name: affine
+volumes:
+  upload:
+  config:
+
+services:
+  affine:
+    image: ghcr.io/toeverything/affine-graphql:${AFFINE_REVISION:-stable}
+    container_name: affine_server
+    ports:
+      - '${PORT:-3010}:3010'
+    depends_on:
+      redis:
+        condition: service_healthy
+      affine_migration:
+        condition: service_completed_successfully
+    volumes:
+      - upload:/root/.affine/storage
+      - config:/root/.affine/config
+    env_file:
+      - .env
+    environment:
+      - REDIS_SERVER_HOST=redis
+      - DATABASE_URL=${PG_URL}
+    restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  affine_migration:
+    image: ghcr.io/toeverything/affine-graphql:${AFFINE_REVISION:-stable}
+    container_name: affine_migration_job
+    volumes:
+      - upload:/root/.affine/storage
+      - config:/root/.affine/config
+    command: ['sh', '-c', 'node ./scripts/self-host-predeploy.js']
+    env_file:
+      - .env
+    environment:
+      - REDIS_SERVER_HOST=redis
+      - DATABASE_URL=${PG_URL}
+    depends_on:
+      redis:
+        condition: service_healthy
+    labels:
+      - "com.centurylinklabs.watchtower.monitor-only=true"
+
+  redis:
+    image: redis:7
+    container_name: redis_affine
+    healthcheck:
+      test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
