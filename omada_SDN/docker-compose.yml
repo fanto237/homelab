@@ -1,7 +1,7 @@
 services:
   omada-controller:
     container_name: omada-controller
-    image: mbentley/omada-controller:beta-5.14.30.7
+    image: mbentley/omada-controller
     restart: unless-stopped
     ulimits:
       nofile:
@@ -32,6 +32,8 @@ services:
     volumes:
       - data:/opt/tplink/EAPController/data
       - logs:/opt/tplink/EAPController/logs
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
 
 volumes:
   data:

@@ -78,6 +78,8 @@ services:
     depends_on:
       - postgresql
       - redis
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
 
 volumes:
   database:

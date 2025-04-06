@@ -33,6 +33,7 @@ services:
       - SENDS_ALLOWED=true
       - WEB_VAULT_ENABLED=true
       - TZ=Europe/Berlin
-
+    labels:
+      - "com.centurylinklabs.watchtower.monitor-only=true"
 volumes:
   vaultwarden:
